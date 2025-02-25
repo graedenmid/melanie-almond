@@ -5,15 +5,30 @@ document.addEventListener("DOMContentLoaded", function () {
   const body = document.body;
 
   if (mobileMenuButton) {
-    mobileMenuButton.addEventListener("click", function () {
+    // Add touchstart event for better mobile responsiveness, especially on iOS Safari
+    mobileMenuButton.addEventListener(
+      "touchstart",
+      function (e) {
+        e.preventDefault(); // Prevent default touch behavior
+        toggleMobileMenu();
+      },
+      { passive: false }
+    );
+
+    mobileMenuButton.addEventListener("click", function (e) {
+      toggleMobileMenu();
+    });
+
+    // Function to toggle mobile menu state
+    function toggleMobileMenu() {
       navLinks.classList.toggle("active");
       mobileMenuButton.classList.toggle("active");
-      body.classList.toggle("menu-open"); // Prevent scrolling when menu is open
+      body.classList.toggle("menu-open");
 
       // Toggle aria-expanded attribute for accessibility
       const isExpanded = navLinks.classList.contains("active");
       mobileMenuButton.setAttribute("aria-expanded", isExpanded);
-    });
+    }
   }
 
   // Dropdown functionality
