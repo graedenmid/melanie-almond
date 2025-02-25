@@ -128,12 +128,15 @@ header {
   transform: translateY(10px);
   transition: all var(--transition-speed);
   z-index: var(--z-dropdown);
+  list-style: none;
+  padding-left: 0;
 }
 
 .dropdown-menu li {
   margin: 0;
   padding: 0;
   width: 100%;
+  list-style-type: none;
 }
 
 .dropdown-menu a {
