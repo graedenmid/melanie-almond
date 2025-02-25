@@ -97,7 +97,16 @@ header {
   color: var(--color-accent-1);
 }
 
-/* Dropdown styles */
+/* Dropdown Menu - Consolidated Styles */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-arrow {
+  font-size: 0.7rem;
+  margin-left: 0.3em;
+}
+
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -110,8 +119,26 @@ header {
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
-  transition: all 0.3s ease;
+  transition: all var(--transition-speed);
   z-index: 100;
+}
+
+.dropdown-menu li {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 0.7rem 1.5rem;
+  color: var(--color-text);
+  transition: background-color var(--transition-speed);
+}
+
+.dropdown-menu a:hover {
+  background-color: rgba(191, 169, 209, 0.1); /* Light version of main color */
+  color: var(--color-accent-1);
 }
 
 .dropdown:hover .dropdown-menu,
@@ -121,19 +148,40 @@ header {
   transform: translateY(0);
 }
 
-.dropdown-menu li {
-  margin: 0;
-  padding: 0;
-}
+/* Mobile dropdown adjustments */
+@media (max-width: 768px) {
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    opacity: 1;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    transform: none;
+    transition: height var(--transition-speed);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 0;
+  }
 
-.dropdown-menu a {
-  display: block;
-  padding: 0.7rem 1.5rem;
-}
+  .dropdown-menu a {
+    padding: 0.5rem 1rem;
+  }
 
-.dropdown-arrow {
-  font-size: 0.7rem;
-  margin-left: 0.3rem;
+  .dropdown:hover .dropdown-menu {
+    display: none; /* We'll control this with JavaScript on mobile */
+  }
+
+  .dropdown.active .dropdown-menu {
+    visibility: visible;
+    height: auto;
+    padding: 0.5rem 0;
+    display: block;
+  }
 }
 
 /* Mobile menu button */
@@ -673,72 +721,6 @@ footer {
 
   .info-grid {
     grid-template-columns: 1fr;
-  }
-}
-
-/* Dropdown Menu */
-.dropdown {
-  position: relative;
-}
-
-.dropdown-arrow {
-  font-size: 0.7em;
-  margin-left: 0.3em;
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: white;
-  min-width: 180px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  padding: 0.5rem 0;
-  z-index: 100;
-}
-
-.dropdown-menu li {
-  display: block;
-  width: 100%;
-}
-
-.dropdown-menu a {
-  display: block;
-  padding: 0.7rem 1.5rem;
-  color: var(--color-text);
-  transition: background-color var(--transition-speed);
-}
-
-.dropdown-menu a:hover {
-  background-color: rgba(191, 169, 209, 0.1); /* Light version of main color */
-}
-
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
-/* Mobile dropdown adjustments */
-@media (max-width: 768px) {
-  .dropdown-menu {
-    position: static;
-    box-shadow: none;
-    background-color: rgba(0, 0, 0, 0.03);
-    border-radius: 0;
-    padding-left: 1rem;
-  }
-
-  .dropdown-menu a {
-    padding: 0.5rem 1rem;
-  }
-
-  .dropdown:hover .dropdown-menu {
-    display: none; /* We'll control this with JavaScript on mobile */
-  }
-
-  .dropdown.active .dropdown-menu {
-    display: block;
   }
 }
 
