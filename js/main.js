@@ -29,6 +29,53 @@ document.addEventListener("DOMContentLoaded", function () {
       const isExpanded = navLinks.classList.contains("active");
       mobileMenuButton.setAttribute("aria-expanded", isExpanded);
     }
+
+    // Function to close mobile menu
+    function closeMobileMenu() {
+      if (navLinks.classList.contains("active")) {
+        navLinks.classList.remove("active");
+        mobileMenuButton.classList.remove("active");
+        body.classList.remove("menu-open");
+        mobileMenuButton.setAttribute("aria-expanded", "false");
+      }
+    }
+
+    // Close menu when tapping outside
+    document.addEventListener("touchstart", function (e) {
+      if (
+        navLinks.classList.contains("active") &&
+        !navLinks.contains(e.target) &&
+        !mobileMenuButton.contains(e.target)
+      ) {
+        closeMobileMenu();
+      }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function (e) {
+      if (
+        navLinks.classList.contains("active") &&
+        !navLinks.contains(e.target) &&
+        !mobileMenuButton.contains(e.target)
+      ) {
+        closeMobileMenu();
+      }
+    });
+
+    // Close menu when scrolling
+    let scrollTimer;
+    window.addEventListener(
+      "scroll",
+      function () {
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(function () {
+          if (navLinks.classList.contains("active")) {
+            closeMobileMenu();
+          }
+        }, 150); // Small delay to prevent immediate closing on slight scroll
+      },
+      { passive: true }
+    );
   }
 
   // Dropdown functionality
