@@ -161,27 +161,43 @@ header {
 /* Mobile dropdown as floating box */
 @media (max-width: 768px) {
   .nav-links.active {
-    background-color: rgba(
-      255,
-      255,
-      255,
-      0.95
-    ); /* Semi-transparent background */
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); /* Add shadow for floating effect */
-    width: 85%; /* Not full width */
-    max-width: 350px; /* Maximum width */
-    height: auto; /* Not full height */
-    max-height: 80vh; /* Maximum height */
-    border-radius: 10px; /* Rounded corners */
-    top: 5rem; /* Position from top */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%) translateY(0); /* Center adjustment when active */
-    overflow-y: auto; /* Scrollable if needed */
-    margin: 0 auto; /* Center alignment */
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    width: 85%;
+    max-width: 350px;
+    height: auto;
+    max-height: 80vh;
+    border-radius: 10px;
+    position: fixed;
+    top: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow-y: auto;
+    margin: 0;
   }
 
   .nav-links {
-    transform: translateX(-50%) translateY(-150%); /* Off-screen when inactive */
+    position: fixed;
+    top: 5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(-150%);
+    width: 85%;
+    max-width: 350px;
+    margin: 0;
+    padding: 2rem;
+  }
+
+  /* Ensure the menu is properly centered */
+  .main-nav {
+    position: relative;
+  }
+
+  /* Keep mobile button in correct position */
+  .mobile-menu {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: var(--z-mobile-button);
   }
 
   /* Adjust background overlay */
@@ -194,12 +210,6 @@ header {
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
     z-index: 999; /* Just below the menu */
-  }
-
-  /* Keep mobile button visible */
-  .mobile-menu {
-    position: fixed;
-    z-index: var(--z-mobile-button);
   }
 }
 
