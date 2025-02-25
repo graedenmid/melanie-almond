@@ -52,32 +52,37 @@ p {
 
 /* Comprehensive navigation fix for both desktop and mobile */
 
-/* Base header and navigation styles */
+/* Reset navigation styles completely */
 header {
   position: relative;
   z-index: 1000;
 }
 
 .main-nav {
-  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 2rem;
   background-color: white;
+  width: 100%;
 }
 
-/* Desktop navigation styles */
+.logo {
+  flex: 0 0 auto;
+}
+
 .nav-links {
   display: flex;
-  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+  gap: 2rem;
 }
 
 .nav-links li {
-  margin: 0 1rem;
   position: relative;
 }
 
@@ -92,7 +97,7 @@ header {
   color: var(--color-accent-1);
 }
 
-/* Dropdown styles for desktop */
+/* Dropdown styles */
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -140,9 +145,12 @@ header {
   z-index: 1002;
 }
 
-/* Mobile-specific styles */
+/* Mobile styles */
 @media (max-width: 768px) {
-  /* Show mobile menu button */
+  .main-nav {
+    padding: 1rem;
+  }
+
   .mobile-menu {
     display: flex;
     flex-direction: column;
@@ -172,21 +180,21 @@ header {
     transform: rotate(-45deg) translate(5px, -5px);
   }
 
-  /* Mobile nav links */
   .nav-links {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
     width: 100%;
     height: 100vh;
     background-color: white;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     padding: 2rem;
-    transition: transform 0.3s ease;
+    gap: 1.5rem;
     transform: translateY(-100%);
+    transition: transform 0.3s ease;
     z-index: 1001;
   }
 
@@ -195,14 +203,18 @@ header {
   }
 
   .nav-links li {
-    margin: 1rem 0;
-    text-align: center;
     width: 100%;
+    text-align: center;
   }
 
-  /* Mobile dropdown styles */
+  .nav-links a {
+    display: block;
+    padding: 0.5rem 0;
+  }
+
   .dropdown-menu {
     position: static;
+    width: 100%;
     box-shadow: none;
     opacity: 1;
     visibility: hidden;
@@ -211,7 +223,6 @@ header {
     transform: none;
     transition: height 0.3s ease;
     padding: 0;
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -227,14 +238,8 @@ header {
     margin: 0.5rem 0;
   }
 
-  /* Prevent body scrolling when menu is open */
   body.menu-open {
     overflow: hidden;
-  }
-
-  /* CTA button in mobile menu */
-  .nav-links .cta-button {
-    margin-top: 1rem;
   }
 }
 
