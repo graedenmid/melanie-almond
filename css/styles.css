@@ -158,39 +158,48 @@ header {
   transform: translateY(0);
 }
 
-/* Mobile dropdown adjustments */
+/* Mobile dropdown as floating box */
 @media (max-width: 768px) {
-  .dropdown-menu {
-    position: static;
-    width: 100%;
-    box-shadow: none;
-    opacity: 1;
-    visibility: hidden;
-    height: 0;
-    overflow: hidden;
-    transform: none;
-    transition: height var(--transition-speed);
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.03);
-    border-radius: 0;
+  .nav-links.active {
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.95
+    ); /* Semi-transparent background */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2); /* Add shadow for floating effect */
+    width: 85%; /* Not full width */
+    max-width: 350px; /* Maximum width */
+    height: auto; /* Not full height */
+    max-height: 80vh; /* Maximum height */
+    border-radius: 10px; /* Rounded corners */
+    top: 5rem; /* Position from top */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%) translateY(0); /* Center adjustment when active */
+    overflow-y: auto; /* Scrollable if needed */
+    margin: 0 auto; /* Center alignment */
   }
 
-  .dropdown-menu a {
-    padding: 0.5rem 1rem;
+  .nav-links {
+    transform: translateX(-50%) translateY(-150%); /* Off-screen when inactive */
   }
 
-  .dropdown:hover .dropdown-menu {
-    display: none; /* We'll control this with JavaScript on mobile */
+  /* Adjust background overlay */
+  body.menu-open::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: 999; /* Just below the menu */
   }
 
-  .dropdown.active .dropdown-menu {
-    visibility: visible;
-    height: auto;
-    padding: 0.5rem 0;
-    display: block;
+  /* Keep mobile button visible */
+  .mobile-menu {
+    position: fixed;
+    z-index: var(--z-mobile-button);
   }
 }
 
