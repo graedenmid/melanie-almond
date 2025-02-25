@@ -203,12 +203,12 @@ header {
     transform: rotate(-45deg) translate(5px, -5px);
   }
 
-  /* Mobile navigation as floating box - ONLY THESE STYLES APPLY */
+  /* Mobile navigation as floating box */
   .nav-links {
     position: fixed;
     top: 5rem;
-    left: 50%;
-    transform: translateX(-50%) translateY(-150%);
+    left: 50%; /* Center point of the screen */
+    transform: translateX(-50%) translateY(-150%); /* Move left by 50% of its own width */
     width: 85%;
     max-width: 350px;
     background-color: rgba(255, 255, 255, 0.95);
@@ -223,10 +223,12 @@ header {
     z-index: var(--z-mobile-nav);
     overflow-y: auto;
     margin: 0;
+    /* Debug outline */
+    /* outline: 2px solid red; */
   }
 
   .nav-links.active {
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%) translateY(0); /* Keep horizontal centering when active */
   }
 
   .nav-links li {
