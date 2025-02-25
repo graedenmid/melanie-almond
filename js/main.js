@@ -195,4 +195,73 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   });
+
+  // Add skip navigation link
+  const header = document.querySelector("header");
+  if (header) {
+    const skipLink = document.createElement("a");
+    skipLink.href = "#main-content";
+    skipLink.className = "skip-nav";
+    skipLink.textContent = "Skip to main content";
+    document.body.insertBefore(skipLink, header);
+  }
+
+  // Improve dropdown keyboard accessibility
+  const dropdownLinks = document.querySelectorAll(".dropdown > a");
+
+  dropdownLinks.forEach((link) => {
+    // Add ARIA attributes
+    const dropdown = link.parentElement;
+    const menu = dropdown.querySelector(".dropdown-menu");
+    const menuId = `dropdown-${Math.random().toString(36).substr(2, 9)}`;
+
+    if (menu) {
+      menu.id = menuId;
+      link.setAttribute("aria-haspopup", "true");
+      link.setAttribute("aria-expanded", "false");
+      link.setAttribute("aria-controls", menuId);
+
+      // Handle keyboard events
+      link.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+
+          const isExpanded = link.getAttribute("aria-expanded") === "true";
+
+          // Close other dropdowns
+          dropdownLinks.forEach((otherLink) => {
+            if (otherLink !== link) {
+              otherLink.setAttribute("aria-expanded", "false");
+              otherLink.parentElement.classList.remove("active");
+            }
+          });
+
+          // Toggle current dropdown
+          link.setAttribute("aria-expanded", !isExpanded);
+          dropdown.classList.toggle("active");
+
+          // Focus first item in dropdown if opening
+          if (!isExpanded) {
+            const firstItem = menu.querySelector("a");
+            if (firstItem) {
+              setTimeout(() => firstItem.focus(), 100);
+            }
+          }
+        } else if (e.key === "Escape") {
+          link.setAttribute("aria-expanded", "false");
+          dropdown.classList.remove("active");
+          link.focus();
+        }
+      });
+
+      // Handle keyboard navigation within dropdown
+      menu.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          link.setAttribute("aria-expanded", "false");
+          dropdown.classList.remove("active");
+          link.focus();
+        }
+      });
+    }
+  });
 });
