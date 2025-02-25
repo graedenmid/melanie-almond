@@ -40,39 +40,52 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    // Close menu when tapping outside
-    document.addEventListener("touchstart", function (e) {
-      if (
-        navLinks.classList.contains("active") &&
-        !navLinks.contains(e.target) &&
-        !mobileMenuButton.contains(e.target)
-      ) {
-        closeMobileMenu();
-      }
-    });
+    // Close menu when tapping outside - with capture phase
+    document.addEventListener(
+      "touchstart",
+      function (e) {
+        // Only proceed if menu is active
+        if (!navLinks.classList.contains("active")) return;
 
-    // Close menu when clicking outside
-    document.addEventListener("click", function (e) {
-      if (
-        navLinks.classList.contains("active") &&
-        !navLinks.contains(e.target) &&
-        !mobileMenuButton.contains(e.target)
-      ) {
-        closeMobileMenu();
-      }
-    });
+        // Check if click is outside menu and menu button
+        if (
+          !navLinks.contains(e.target) &&
+          !mobileMenuButton.contains(e.target)
+        ) {
+          e.stopPropagation(); // Stop event from being handled by other listeners
+          closeMobileMenu();
+        }
+      },
+      true
+    ); // Use capture phase to ensure this runs before other handlers
 
-    // Close menu when scrolling
-    let scrollTimer;
+    // Close menu when clicking outside - with capture phase
+    document.addEventListener(
+      "click",
+      function (e) {
+        // Only proceed if menu is active
+        if (!navLinks.classList.contains("active")) return;
+
+        // Check if click is outside menu and menu button
+        if (
+          !navLinks.contains(e.target) &&
+          !mobileMenuButton.contains(e.target)
+        ) {
+          e.stopPropagation(); // Stop event from being handled by other listeners
+          closeMobileMenu();
+        }
+      },
+      true
+    ); // Use capture phase to ensure this runs before other handlers
+
+    // Close menu when scrolling - more direct approach
     window.addEventListener(
       "scroll",
       function () {
-        clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(function () {
-          if (navLinks.classList.contains("active")) {
-            closeMobileMenu();
-          }
-        }, 150); // Small delay to prevent immediate closing on slight scroll
+        // Immediately close if menu is open and scrolling occurs
+        if (navLinks.classList.contains("active")) {
+          closeMobileMenu();
+        }
       },
       { passive: true }
     );
